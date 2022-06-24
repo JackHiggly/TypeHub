@@ -1,0 +1,172 @@
+   _G.AccentColors = {
+    Accent1 = Color3.fromRGB(24, 117, 255),
+    Accent2 = Color3.fromRGB(18, 92, 202)
+}
+
+local Framework = loadstring(game:HttpGet("https://pastebinp.com/raw/KP1dUHFg"))()
+local Watermark = Framework:CreateWatermark("TypeHub | {game} | {fps}")
+local WriteLine  = Framework:CreateWindow("TypeHub | 1.1", Vector2.new(492, 588), Enum.KeyCode.RightControl)
+local ESPSettings = { PlayerESP = { Enabled = false, TracersOn = false, BoxesOn = false, NamesOn = false, DistanceOn = false, HealthOn = false, ToolOn = false, FaceCamOn = false, Distance = 2000 }, ScrapESP = { Enabled = false, Distance = 2000, LegendaryOnly = true, RareOnly = true, GoodOnly = true, BadOnly = true }, SafeESP = { Enabled = false, Distance = 2000, BigOnly = true, SmallOnly = true }, RegisterESP = { Enabled = false, Distance = 2000 }, ESPColor = Color3.fromRGB(255, 255, 255), ToolColor = Color3.fromRGB(255, 255, 255)};
+local ESPFramework = loadstring(game:HttpGet("https://raw.githubusercontent.com/DOXSASHW/ewewew/main/esp", true))()
+local Settings  = { GunMods = { NoRecoil = false, InstantEquip = false, Burst = false, Spread = false, AutoMode = false, SpreadAmount = 0 }, DownedChat = false, KillChat = false, DownedMSG = "IM A FEMALE", KillMSG = "", IsDead = false, AutoPickCash = false, AutoPickTools = false, AutoPickScrap = false, InfiniteStamina = false, NoJumpCooldown = false, SpaceJump = false, NoFailLockpick = false, ShowChatLogs = false, NoFlashbang  = false, NoSmoke = false, UnlockDoorsNearby = false, OpenDoorsNearby = false, NoClip = false, FullBright = false, CamFovToggled = false, CamFov = 70, Zoom = 10, InfinitePepperSpray = false, PepperSprayAura = false, WalkSpeed = {Enabled = false, Amount = 30}, JumpPower = {Enabled = false, Amount = 75}, NoBarbwire = false, NoFallDamage = false, NoRagdoll = false, WatermarkOn = false, ViewModel = { Enabled = false, Viewmodel = { Color = Color3.fromRGB(255, 255, 255), Material = Enum.Material.ForceField }, Melees = { Color = Color3.fromRGB(255, 255, 255), Material = Enum.Material.ForceField }, Guns = { Color = Color3.fromRGB(255, 255, 255), Material = Enum.Material.Plastic }, LeftArmOff = false }, CustomHitSound = 5043539486, VolumeHitsound = 1, WallBang = false, ElevatorTP = false, TowerTP = false, UIKey = Enum.KeyCode.LeftAlt};
+local General = WriteLine:CreateTab("Main")
+local Teleports = WriteLine:CreateTab("Teleports")
+local Setting = WriteLine:CreateTab("Settings")
+
+
+local Main = General:CreateSector("Player", "left")
+local Main2 = General:CreateSector("Misc", "right") 
+local Main4 = General:CreateSector("Visuals", "left") 
+
+local WALKSPEED = Main:AddToggle("Enable Walkspeed", false, function(v)
+    if v == true then
+        getgenv().WalkSpeedValue = _G.WalkSpeed; 
+        local Player = game:service'Players'.LocalPlayer;
+        Player.Character.Humanoid:GetPropertyChangedSignal'WalkSpeed':Connect(function()
+        Player.Character.Humanoid.WalkSpeed = getgenv().WalkSpeedValue;
+        end)
+        Player.Character.Humanoid.WalkSpeed = getgenv().WalkSpeedValue;
+        end 
+        if v == false then
+        getgenv().WalkSpeedValue = 16; 
+        local Player = game:service'Players'.LocalPlayer;
+        Player.Character.Humanoid:GetPropertyChangedSignal'WalkSpeed':Connect(function()
+        Player.Character.Humanoid.WalkSpeed = getgenv().WalkSpeedValue;
+        end)
+        Player.Character.Humanoid.WalkSpeed = getgenv().WalkSpeedValue;
+    end
+    end)
+    WALKSPEED:AddKeybind("None", "UserIToggle")
+    
+Main:AddSlider("Walkspeed", 5, 5, 100, 1, function(v)
+    _G.WalkSpeed = v
+end)
+    
+local JUMPPOWER = Main:AddToggle("Enable Jump Power", false, function(v)
+    if v == true then
+        getgenv().JumpPowerValue = _G.JumpPower; 
+        local Player = game:service'Players'.LocalPlayer;
+        Player.Character.Humanoid:GetPropertyChangedSignal'WalkSpeed':Connect(function()
+        Player.Character.Humanoid.JumpPower = getgenv().JumpPowerValue;
+        end)
+        Player.Character.Humanoid.JumpPower = getgenv().JumpPowerValue;
+        end 
+    if v == false then
+        getgenv().JumpPowerValue = 50; 
+        local Player = game:service'Players'.LocalPlayer;
+        Player.Character.Humanoid:GetPropertyChangedSignal'JumpPower':Connect(function()
+        Player.Character.Humanoid.JumpPower = getgenv().JumpPowerValue;
+        end)
+        Player.Character.Humanoid.JumpPower = getgenv().JumpPowerValue;
+    end
+end)
+    
+JUMPPOWER:AddKeybind("None", "UserIToggle")
+    
+   Main:AddSlider("Jump Power", 5, 5, 100, 1, function(v)
+    _G.JumpPower = v
+end)
+
+
+Main:AddButton("Float [Q & E]", function()
+    bruh = Instance.new('Part', game.Workspace)
+    bruh.Name = "bruh"
+    bruh.Size = Vector3.new(6,.1,6)
+    bruh.Color = Color3.fromRGB(100,166,200)
+    bruh.Anchored = true
+    bruh.Transparency = 1 --set to whatever lol
+    loop = false
+    a = game.Players.LocalPlayer:GetMouse()
+    a.KeyDown:Connect(function(black)
+    if black == "q" then
+       loop = true
+       while loop do
+           wait()
+    bruh.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame + Vector3.new(0,-3.05,0)
+    end
+    elseif black == "e" and loop == true then
+    loop = false
+    end
+    end)
+    end)
+
+    Main4:AddToggle("Enable ESP", ESPSettings.PlayerESP.Enabled, function(v)
+        ESPSettings.PlayerESP.Enabled = v
+    
+        ESPFramework.Color = ESPSettings.ESPColor
+        ESPFramework.ToolColor = ESPSettings.ToolColor
+        ESPFramework.Tracers = ESPSettings.PlayerESP.TracersOn
+        ESPFramework.Names = ESPSettings.PlayerESP.NamesOn
+        ESPFramework.Health = ESPSettings.PlayerESP.HealthOn
+        ESPFramework.Distance = ESPSettings.PlayerESP.DistanceOn
+        ESPFramework.Tool = ESPSettings.PlayerESP.ToolOn
+        ESPFramework.Boxes = ESPSettings.PlayerESP.BoxesOn
+        ESPFramework.FaceCamera = ESPSettings.PlayerESP.FaceCamOn
+        ESPFramework:Toggle(ESPSettings.PlayerESP.Enabled)
+    end, "PlayerESPsToggle")
+    
+    Main4:AddToggle("Face Camera", ESPSettings.PlayerESP.FaceCamOn, function(v)
+        ESPSettings.PlayerESP.FaceCamOn = v
+        ESPFramework.FaceCamera = ESPSettings.PlayerESP.FaceCamOn
+    end)
+    
+    Main4:AddToggle("Box ESP", ESPSettings.PlayerESP.BoxesOn, function(v)
+        ESPSettings.PlayerESP.BoxesOn = v
+        ESPFramework.Boxes = ESPSettings.PlayerESP.BoxesOn
+    end)
+    
+    Main4:AddToggle("Tracers ESP", ESPSettings.PlayerESP.TracersOn, function(v)
+        ESPSettings.PlayerESP.TracersOn = v
+        ESPFramework.Tracers = ESPSettings.PlayerESP.TracersOn
+    end)
+    
+    Main4:AddToggle("Name ESP", ESPSettings.PlayerESP.NamesOn, function(v)
+        ESPSettings.PlayerESP.NamesOn = v
+        ESPFramework.Names = ESPSettings.PlayerESP.NamesOn
+    end)
+    
+    Main4:AddToggle("Health ESP", ESPSettings.PlayerESP.HealthOn, function(v)
+        ESPSettings.PlayerESP.HealthOn = v
+        ESPFramework.Health = ESPSettings.PlayerESP.HealthOn
+    end)
+    
+    Main4:AddToggle("Tool ESP", ESPSettings.PlayerESP.ToolOn, function(v)
+        ESPSettings.PlayerESP.ToolOn = v
+        ESPFramework.Tool = ESPSettings.PlayerESP.ToolOn
+    end)
+    
+    Main4:AddToggle("Distance ESP", ESPSettings.PlayerESP.DistanceOn, function(v)
+        ESPSettings.PlayerESP.DistanceOn = v
+        ESPFramework.Distance = ESPSettings.PlayerESP.DistanceOn
+    end)
+
+
+Main2:AddSeperator("Buy Things")
+
+Main2:AddButton("Car Stuff", function()
+    game:GetService("Workspace").ItemBoughtFromShop:FireServer("CarStuff")
+end)
+
+Main2:AddButton("Plane Stuff", function()
+    game:GetService("Workspace").ItemBoughtFromShop:FireServer("PlaneStuff")
+end)
+
+Main2:AddButton("Common", function()
+    game:GetService("Workspace").ItemBoughtFromShop:FireServer("Common")
+end)
+
+Main2:AddButton("Uncommon", function()
+    game:GetService("Workspace").ItemBoughtFromShop:FireServer("Uncommon")
+end)
+
+Main2:AddButton("Rare", function()
+    game:GetService("Workspace").ItemBoughtFromShop:FireServer("Rare")
+end)
+
+Main2:AddButton("Epic", function()
+    game:GetService("Workspace").ItemBoughtFromShop:FireServer("Epic")
+end)
+
+Main2:AddButton("Legendary", function()
+    game:GetService("Workspace").ItemBoughtFromShop:FireServer("Legendary")
+end)
